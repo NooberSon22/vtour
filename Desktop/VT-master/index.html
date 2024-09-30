@@ -1,0 +1,80 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+        <title>Virtual Tour And Mapping</title>
+    </head>
+    <body>
+        
+        <div id="map" style="width: 100%; height: 900px;"></div>
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmVzdTExMDgiLCJhIjoiY20xbmxtcDk0MHh6YjJzc2IyN2Zwb28zbiJ9.3gg2hb3411eHKFAtaycrrg';
+
+            var map = new mapboxgl.Map({
+                container: 'map', 
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [121.187593, 14.482838], 
+                zoom: 18.7 
+            });
+            const createMarker = (info) => {
+                const popup = new mapboxgl.Popup()
+                .setText(info.scene)
+                .addTo(map);
+
+                const marker =  new mapboxgl.Marker().
+                    setLngLat(info.geometry)
+                    .addTo(map)
+                    .setPopup(popup);
+                
+                
+
+                marker.getElement().addEventListener('click', function() {
+                    window.location.href = `virtual-tour.html?scene=${info.scene}`; // Redirect to court scene
+                });
+            }
+
+            
+            const markers = [
+                {
+                    geometry: [121.187409, 14.483193],
+                    scene: "court"
+                },
+                {
+                    geometry: [121.187436, 14.482425],
+                    scene: "groundfloor"
+                }
+            ]
+
+            markers.forEach(createMarker);
+
+            
+
+            // Marker for Scene 1
+            // Marker for Scene 1 (court)
+            // var marker1 = new mapboxgl.Marker()
+            //     .setLngLat([121.187409, 14.483193])
+            //     .addTo(map);
+
+            // marker1.getElement().addEventListener('click', function() {
+            //     window.location.href = "virtual-tour.html?scene=court"; // Redirect to court scene
+            // });
+
+            // // Marker for Scene 2 (groundfloor)
+            // var marker2 = new mapboxgl.Marker()
+            //     .setLngLat([121.187436, 14.482425])
+            //     .addTo(map);
+
+            // marker2.getElement().addEventListener('click', function() {
+            //     window.location.href = "virtual-tour.html?scene=groundfloor"; // Redirect to groundfloor scene
+            // });
+
+
+
+        </script>
+        
+    </body>
+    </html>
